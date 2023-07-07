@@ -1,0 +1,30 @@
+name: Sample
+on:
+  pull_request_target:
+    types:
+      - opened
+      - reopened
+
+jobs:
+  sample:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+        name: checkout
+        with:
+          fetch-depth: 0
+
+      - uses: KazukiHayase/review-git-diff-action@v1.0.0
+        name: diff
+        with:
+          threshold: 100
+          message: "⚠️  Git diff exceeds 100, please consider if PR can be split."
+      - name: Check on failures
+        if: steps.diff.outcome != 'success'
+        run: exit 1
+      - name: Merge
+        uses: devmasx/merge-branch@master
+        with:
+          type now
+          target_branch main
+          github_token: ${{ secrets.GITHUB_TOKEN }}
