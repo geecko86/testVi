@@ -10,11 +10,11 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: checkout
-	uses: actions/checkout@v3
+	    uses: actions/checkout@v3
         with:
           fetch-depth: 0
       - name: diff
-	uses: KazukiHayase/review-git-diff-action@v1.0.0
+	    uses: KazukiHayase/review-git-diff-action@v1.0.0
         with:
           threshold: 0
           message: "⚠️  Git diff exceeds 0, won't be merged automatically."
