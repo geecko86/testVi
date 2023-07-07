@@ -1,6 +1,6 @@
-name: Sample
+name: merge_empty_pr
 on:
-  pull_request_target:
+  pull_request:
     types:
       - opened
       - reopened
@@ -24,3 +24,8 @@ jobs:
           type: now
           target_branch: main
           github_token: ${{ secrets.TOKEN_APPROVE_PR }}
+      - id: automerge
+          name: automerge
+          uses: "pascalgn/automerge-action@v0.15.6"
+          env:
+            GITHUB_TOKEN: "${{ secrets.TOKEN_APPROVE_PR }}"
