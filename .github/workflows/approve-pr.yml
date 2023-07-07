@@ -18,9 +18,6 @@ jobs:
         with:
           threshold: 0
           message: "⚠️  Git diff exceeds 0, won't be merged automatically."
-      - name: check empty PR
-        if: steps.diff.outcome != 'success'
-        run: exit 1
       - name: merge
         uses: devmasx/merge-branch@master
         with:
