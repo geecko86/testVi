@@ -1,0 +1,29 @@
+name: Sample
+on:
+  pull_request_target:
+    types:
+      - opened
+      - reopened
+
+jobs:
+  sample:
+    runs-on: ubuntu-latest
+    steps:
+      - name: checkout
+	uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+      - name: diff
+	uses: KazukiHayase/review-git-diff-action@v1.0.0
+        with:
+          threshold: 0
+          message: "⚠️  Git diff exceeds 0, won't be merged automatically."
+      - name: check empty PR
+        if: steps.diff.outcome != 'success'
+        run: exit 1
+      - name: merge
+        uses: devmasx/merge-branch@master
+        with:
+          type now
+          target_branch main
+          github_token: ${{ secrets.TOKEN_APPROVE_PR }}
