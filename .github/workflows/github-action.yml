@@ -9,20 +9,19 @@ jobs:
   sample:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
-        name: checkout
+      - name: checkout
+	uses: actions/checkout@v3
         with:
           fetch-depth: 0
-
-      - uses: KazukiHayase/review-git-diff-action@v1.0.0
-        name: diff
+      - name: diff
+	uses: KazukiHayase/review-git-diff-action@v1.0.0
         with:
           threshold: 0
           message: "⚠️  Git diff exceeds 0, won't be merged automatically."
-      - name: Check on failures
+      - name: check empty PR
         if: steps.diff.outcome != 'success'
         run: exit 1
-      - name: Merge
+      - name: merge
         uses: devmasx/merge-branch@master
         with:
           type now
