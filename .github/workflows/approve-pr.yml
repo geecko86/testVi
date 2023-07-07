@@ -1,10 +1,10 @@
+---
 name: merge_empty_pr
 on:
   pull_request:
     types:
       - opened
       - reopened
-
 jobs:
   sample:
     runs-on: ubuntu-latest
@@ -17,15 +17,14 @@ jobs:
         uses: KazukiHayase/review-git-diff-action@v1.0.0
         with:
           threshold: 0
-          message: "⚠️  Git diff exceeds 0, won't be merged automatically."
+          message: ⚠️  Git diff exceeds 0, won't be merged automatically.
       - name: merge
         uses: devmasx/merge-branch@master
         with:
           type: now
           target_branch: main
           github_token: ${{ secrets.TOKEN_APPROVE_PR }}
-      - id: automerge
-          name: automerge
-          uses: "pascalgn/automerge-action@v0.15.6"
-          env:
-            GITHUB_TOKEN: "${{ secrets.TOKEN_APPROVE_PR }}"
+      - name: automerge
+        uses: pascalgn/automerge-action@v0.15.6
+        with:
+          GITHUB_TOKEN: ${{ secrets.TOKEN_APPROVE_PR }}
