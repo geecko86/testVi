@@ -24,6 +24,6 @@ jobs:
       - name: merge
         uses: devmasx/merge-branch@master
         with:
-          type now
-          target_branch main
+          type: now
+          target_branch: main
           github_token: ${{ secrets.TOKEN_APPROVE_PR }}
