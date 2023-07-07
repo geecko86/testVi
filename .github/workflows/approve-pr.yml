@@ -1,10 +1,10 @@
-name: Sample
+---
+name: merge_empty_pr
 on:
-  pull_request_target:
+  pull_request:
     types:
       - opened
       - reopened
-
 jobs:
   sample:
     runs-on: ubuntu-latest
